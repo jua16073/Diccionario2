@@ -23,13 +23,13 @@ public class SplayBST<Key extends Comparable<Key>, Value> implements Tri  {
         private Value value;        // associated data
         private Node left, right;   // left and right subtrees
 
-        public Node(Key key, Value value) {
-            this.key   = key;
-            this.value = value;
+        public Node(Comparable key2, Object value2) {
+            this.key   = (Key) key2;
+            this.value = (Value) value2;
         }
     }
 
-    public boolean contains(Key key) {
+   /* public boolean contains(Key key) {
         return get(key) != null;
     }
 
@@ -45,7 +45,7 @@ public class SplayBST<Key extends Comparable<Key>, Value> implements Tri  {
    /***************************************************************************
     *  Splay tree insertion.
     ***************************************************************************/
-    public void put(Key key, Value value) {
+   /* public void put(Key key, Value value) {
         // splay key to root
         if (root == null) {
             root = new Node(key, value);
@@ -80,6 +80,7 @@ public class SplayBST<Key extends Comparable<Key>, Value> implements Tri  {
         }
 
     }
+    */
     
    /***************************************************************************
     *  Splay tree deletion.
@@ -121,7 +122,7 @@ public class SplayBST<Key extends Comparable<Key>, Value> implements Tri  {
     // splay key in the tree rooted at Node h. If a node with that key exists,
     //   it is splayed to the root of the tree. If it does not, the last node
     //   along the search path for the key is splayed to the root.
-    private Node splay(Node h, Key key) {
+    private Node splay(Node h, Comparable key) {
         if (h == null) return null;
 
         int cmp1 = key.compareTo(h.key);
@@ -207,4 +208,55 @@ public class SplayBST<Key extends Comparable<Key>, Value> implements Tri  {
         x.left = h;
         return x;
     }
+
+	@Override
+	public boolean contains(Comparable key) {
+		// TODO Auto-generated method stub
+		return get(key) != null;
+	}
+
+	@Override
+	public Object get(Comparable key) {
+		root = splay(root, key);
+        int cmp = key.compareTo(root.key);
+        if (cmp == 0) return root.value;
+        else          return null;
+	}
+
+	@Override
+	public void put(Comparable key, Object value) {
+		// TODO Auto-generated method stub
+		// splay key to root
+        if (root == null) {
+            root = new Node(key, value);
+            return;
+        }
+        
+        root = splay(root, key);
+
+        int cmp = key.compareTo(root.key);
+        
+        // Insert new node at root
+        if (cmp < 0) {
+            Node n = new Node(key, value);
+            n.left = root.left;
+            n.right = root;
+            root.left = null;
+            root = n;
+        }
+
+        // Insert new node at root
+        else if (cmp > 0) {
+            Node n = new Node(key, value);
+            n.right = root.right;
+            n.left = root;
+            root.right = null;
+            root = n;
+        }
+
+        // It was a duplicate key. Simply replace the value
+        else {
+            root.value = (Value) value;
+        }
+	}
 }
