@@ -13,7 +13,7 @@
  *
  ******************************************************************************/
 
-public class SplayBST<Key extends Comparable<Key>, Value>  {
+public class SplayBST<Key extends Comparable<Key>, Value> implements Tri  {
 
     private Node root;   // root of the BST
 

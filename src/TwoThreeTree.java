@@ -3,7 +3,7 @@
 import java.util.LinkedList;
 import java.util.List;
 
-public class TwoThreeTree <K extends Comparable<K>, V> {
+public class TwoThreeTree <K extends Comparable<K>, V> implements Tri{
 
 	//TODO: Rewrite comparator for key, stuff should be sorted by occurrence count with the occurrence number to separate two keys. Word is still the key since count needs to be updated.
 	//Also, need to write a iterator to get one element at the time. And for density and other functions it would be neat if we had the num of elements stored in a global var, so we don't need to traverse the tree each time to find it.
