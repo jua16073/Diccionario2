@@ -1,3 +1,9 @@
+/*Autores: Rodrigo Juárez (16073) y Andrea Cordón (16076)
+ *Fecha 28/04/2017:
+ *Descripción:Programa principal que lee un archivo de texto (diccionario) y crea un tipo de árbol
+ *dependiendo de la elección del usuario.
+ *Principal.java*/
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,19 +25,17 @@ public class Principal {
 		System.out.println("Ingrese el texto a traducir");
 		String text= teclado.nextLine();
 		System.out.println(x.trad(text));
-		
-		
 	}
-	
+
 	public void llenar(String pal){
 		pal= pal.toLowerCase();
 		pal = pal.replaceAll("\t", " ");
 		String [] palabras= pal.split(" ");
 		arbol.put(palabras[0], palabras[1]);
 	}
-	
+
 	String lectura() throws IOException{
-		String a = ""; 
+		String a = "";
 		JFileChooser archivo = new JFileChooser();
 		archivo.showOpenDialog(null);
 		BufferedReader reader = new BufferedReader(new FileReader(archivo.getSelectedFile().getPath()));
@@ -45,7 +49,7 @@ public class Principal {
 		}
 		return a;
 	}
-	
+
 	public String trad(String pal){
 		String trads="";
 		pal = pal.toLowerCase();
@@ -59,6 +63,5 @@ public class Principal {
 		}
 		return trads;
 	}
-	
 
 }

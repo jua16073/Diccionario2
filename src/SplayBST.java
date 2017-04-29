@@ -2,13 +2,13 @@
  *  Compilation:  javac SplayBST.java
  *  Execution:    java SplayBST
  *  Dependencies: none
- *  
+ *
  *  Splay tree. Supports splay-insert, -search, and -delete.
  *  Splays on every operation, regardless of the presence of the associated
  *  key prior to that operation.
  *
  *  Written by Josh Israel.
- *  
+ *
  *  Extraido de: http://algs4.cs.princeton.edu/33balanced/SplayBST.java.html
  *
  ******************************************************************************/
@@ -40,7 +40,7 @@ public class SplayBST<Key extends Comparable<Key>, Value> implements Tri  {
         int cmp = key.compareTo(root.key);
         if (cmp == 0) return root.value;
         else          return null;
-    }    
+    }
 
    /***************************************************************************
     *  Splay tree insertion.
@@ -51,11 +51,11 @@ public class SplayBST<Key extends Comparable<Key>, Value> implements Tri  {
             root = new Node(key, value);
             return;
         }
-        
+
         root = splay(root, key);
 
         int cmp = key.compareTo(root.key);
-        
+
         // Insert new node at root
         if (cmp < 0) {
             Node n = new Node(key, value);
@@ -81,29 +81,29 @@ public class SplayBST<Key extends Comparable<Key>, Value> implements Tri  {
 
     }
     */
-    
+
    /***************************************************************************
     *  Splay tree deletion.
     ***************************************************************************/
     /* This splays the key, then does a slightly modified Hibbard deletion on
-     * the root (if it is the node to be deleted; if it is not, the key was 
+     * the root (if it is the node to be deleted; if it is not, the key was
      * not in the tree). The modification is that rather than swapping the
      * root (call it node A) with its successor, it's successor (call it Node B)
-     * is moved to the root position by splaying for the deletion key in A's 
-     * right subtree. Finally, A's right child is made the new root's right 
+     * is moved to the root position by splaying for the deletion key in A's
+     * right subtree. Finally, A's right child is made the new root's right
      * child.
      */
     public void remove(Key key) {
         if (root == null) return; // empty tree
-        
+
         root = splay(root, key);
 
         int cmp = key.compareTo(root.key);
-        
+
         if (cmp == 0) {
             if (root.left == null) {
                 root = root.right;
-            } 
+            }
             else {
                 Node x = root.right;
                 root = root.left;
@@ -114,8 +114,8 @@ public class SplayBST<Key extends Comparable<Key>, Value> implements Tri  {
 
         // else: it wasn't in the tree to remove
     }
-    
-    
+
+
    /***************************************************************************
     * Splay tree function.
     * **********************************************************************/
@@ -142,12 +142,12 @@ public class SplayBST<Key extends Comparable<Key>, Value> implements Tri  {
                 if (h.left.right != null)
                     h.left = rotateLeft(h.left);
             }
-            
+
             if (h.left == null) return h;
             else                return rotateRight(h);
         }
 
-        else if (cmp1 > 0) { 
+        else if (cmp1 > 0) {
             // key not in tree, so we're done
             if (h.right == null) {
                 return h;
@@ -163,7 +163,7 @@ public class SplayBST<Key extends Comparable<Key>, Value> implements Tri  {
                 h.right.right = splay(h.right.right, key);
                 h = rotateLeft(h);
             }
-            
+
             if (h.right == null) return h;
             else                 return rotateLeft(h);
         }
@@ -183,16 +183,16 @@ public class SplayBST<Key extends Comparable<Key>, Value> implements Tri  {
         return 1 + Math.max(height(x.left), height(x.right));
     }
 
-    
+
     public int size() {
         return size(root);
     }
-    
+
     private int size(Node x) {
         if (x == null) return 0;
         else return 1 + size(x.left) + size(x.right);
     }
-    
+
     // right rotate
     private Node rotateRight(Node h) {
         Node x = h.left;
@@ -231,11 +231,11 @@ public class SplayBST<Key extends Comparable<Key>, Value> implements Tri  {
             root = new Node(key, value);
             return;
         }
-        
+
         root = splay(root, key);
 
         int cmp = key.compareTo(root.key);
-        
+
         // Insert new node at root
         if (cmp < 0) {
             Node n = new Node(key, value);
