@@ -12,22 +12,22 @@ public class Principal {
 		Factory factory= new Factory();
 		System.out.println("Que arbol desea implementar: 1. Splay Tree: 2. Two Three Tree");
 		int dec= teclado.nextInt();
+		teclado.nextLine();
 		arbol= factory.implementacion(dec);
 		Principal x= new Principal();
 		x.lectura();
 		System.out.println("Ingrese el texto a traducir");
+		String text= teclado.nextLine();
+		System.out.println(x.trad(text));
 		
 		
-		
-
 	}
 	
 	public void llenar(String pal){
+		pal= pal.toLowerCase();
 		pal = pal.replaceAll("\t", " ");
 		String [] palabras= pal.split(" ");
 		arbol.put(palabras[0], palabras[1]);
-		System.out.println(palabras[0]);
-		System.out.println(palabras[1]);
 	}
 	
 	String lectura() throws IOException{
@@ -39,15 +39,26 @@ public class Principal {
 		while(reader.ready()){
 			while ((pal=reader.readLine())!= null){
 				a=a+" "+pal;
-				System.out.println(pal);
 				llenar(pal);
 			}
-			//String w=tree.find(new Association<String, String>("yes","si")).toString();
 			return a;
 		}
 		return a;
 	}
 	
+	public String trad(String pal){
+		String trads="";
+		pal = pal.toLowerCase();
+		String [] palabras= pal.split(" ");
+		for (int i=0; i< palabras.length; i++ ){
+			if (arbol.get(palabras[i])!=null){
+				trads= trads+ arbol.get(palabras[i]) + " ";
+			}
+			else
+				trads= trads+ palabras[i]+ " ";
+		}
+		return trads;
+	}
 	
 
 }
